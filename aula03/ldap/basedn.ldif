@@ -1,0 +1,21 @@
+dn: dc=openstack,dc=local
+objectClass: top
+objectClass: dcObject
+objectClass: organization
+o: openstack.local
+dc: openstack
+
+dn: cn=admin,dc=openstack,dc=local
+objectClass: organizationalRole
+objectClass: simpleSecurityObject
+cn: admin
+description: LDAP administrator
+userPassword: 
+
+dn: ou=users,dc=openstack,dc=local
+objectClass: organizationalUnit
+ou: users
+
+dn: ou=groups,dc=openstack,dc=local
+objectClass: organizationalUnit
+ou: groups

@@ -1,0 +1,86 @@
+# ===== PROJETOS =====
+project_infra:   "PROJECT_ID"
+project_openstack: "PROJECT_OPENSTACK_ID"
+
+# ===== REGIÃO/ZONA =====
+region: "us-central1"
+zone:   "us-central1-c"
+
+# ===== SUBNET NAMES =====
+subnet_mgmt_name: "mgmt-net"
+subnet_ext_name:  "ext-net"
+
+# ===== STARTUP SCRIPT (global para todas as VMs) =====
+startup_script: |
+  #! /bin/bash
+  sed -i 's/PermitRootLogin no/PermitRootLogin yes/' /etc/ssh/sshd_config
+  sed -i 's/^PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
+  sed -i '/^#PubkeyAuthentication/s/^#//' /etc/ssh/sshd_config
+  systemctl restart sshd
+  echo "root:4labs-password" | chpasswd
+
+# ===== VMs =====
+vms:
+  infra:
+    project: "infra"
+    vcpu: 4
+    memory_mb: 8192
+    disk_gb: 50
+    ip_mgmt: "10.0.1.10"
+    nic_ext: false
+    can_ip_forward: true
+    nested_kvm: false
+    public_ip: false
+    labels: { role: "infra", course: "openstack" }
+
+  ansible-server:
+    project: "infra"
+    vcpu: 2
+    memory_mb: 4096
+    disk_gb: 20
+    ip_mgmt: "10.0.1.11"
+    nic_ext: false
+    can_ip_forward: true
+    nested_kvm: false
+    public_ip: false
+    labels: { role: "infra", course: "openstack" }
+
+  controller:
+    project: "openstack"
+    vcpu: 4
+    memory_mb: 16384
+    disk_gb: 50
+    ip_mgmt: "10.0.2.10"
+    ip_ext:  "192.168.200.10"
+    nic_ext: true
+    can_ip_forward: true
+    nested_kvm: false
+    public_ip: true
+    extra_tags: ["horizon"]
+    labels: { role: "controller", course: "openstack" }
+
+  compute01:
+    project: "openstack"
+    vcpu: 2
+    memory_mb: 8192
+    disk_gb: 50
+    ip_mgmt: "10.0.2.11"
+    ip_ext:  "192.168.200.11"
+    nic_ext: true
+    can_ip_forward: true
+    nested_kvm: true
+    public_ip: false
+    labels: { role: "compute", course: "openstack" }
+
+  compute02:
+    project: "openstack"
+    vcpu: 2
+    memory_mb: 8192
+    disk_gb: 50
+    ip_mgmt: "10.0.2.12"
+    ip_ext:  "192.168.200.12"
+    nic_ext: true
+    can_ip_forward: true
+    nested_kvm: true
+    public_ip: false
+    labels: { role: "compute", course: "openstack" }

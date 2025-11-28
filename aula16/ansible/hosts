@@ -1,0 +1,9 @@
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
+ansible_user=root
+
+[lab]
+infra      ansible_host=10.0.1.10
+controller ansible_host=10.0.2.10
+compute01  ansible_host=10.0.2.11
+compute02  ansible_host=10.0.2.12

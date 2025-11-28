@@ -1,0 +1,70 @@
+heat_template_version: 2015-10-15
+
+description: >
+  Lança uma instância com a imagem CirrOS usando o flavor
+  "m1.tiny", par de chave "demo-keypair", rede privada "privada1" e floating IP.
+
+parameters:
+  IntNetName:
+    type: string
+    description: Nome da rede privada.
+    default: privada1
+
+  PubNetName:
+    type: string
+    description: Nome da rede publica.
+    default: net-provider1
+
+  ImageName:
+    type: string
+    description: Nome da imagem.
+    default: cirros
+
+  KeyName:
+    type: string
+    description: Nome do par de chave.
+    default: demo-keypair
+
+  SGName:
+    type: string
+    description: Nome do grupo de segurança.
+    default: default
+
+  FlavorName:
+    type: string
+    description: Nome do flavor.
+    default: m1.tiny
+    constraints:
+      - allowed_values: [ m1.tiny, m1.small, m1.medium ]
+
+resources:
+  demo-server:
+    type: OS::Nova::Server
+    properties:
+      image: { get_param: ImageName }
+      flavor: { get_param: FlavorName }
+      key_name: { get_param: KeyName }
+      networks:
+        - network: { get_param: IntNetName }
+      security_groups:
+        - { get_param: SGName }
+
+  demo-fip:
+    type: OS::Neutron::FloatingIP
+    properties:
+      floating_network: { get_param: PubNetName }
+
+  fip-association:
+    type: OS::Neutron::FloatingIPAssociation
+    properties:
+      floatingip_id: { get_resource: demo-fip }
+      port_id: { get_attr: [ demo-server, addresses, { get_param: IntNetName }, 0, port ] }
+
+outputs:
+  demo-server-name:
+    description: Nome da instância.
+    value: { get_attr: [ demo-server, name ] }
+
+  demo-fip:
+    description: IP address da instância.
+    value: { get_attr: [ demo-fip, floating_ip_address ] }

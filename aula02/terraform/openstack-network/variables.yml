@@ -1,0 +1,16 @@
+# ===== PROJETOS (substitua pelos SEUS IDs) =====
+project_infra:   "PROJECT_ID"
+project_openstack: "PROJECT_OPENSTACK_ID"
+
+# ===== REGIÃO/ZONA
+region: "us-central1"
+zone:   "us-central1-c"
+
+# ===== CIDRs
+# INFRA
+mgmt_cidr_infra: "10.0.1.0/24"
+
+# OPENSTACK
+mgmt_cidr_openstack: "10.0.2.0/24"
+ext_cidr_openstack:  "192.168.200.0/24"
+

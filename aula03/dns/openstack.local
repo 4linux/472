@@ -1,0 +1,22 @@
+$TTL 604800
+@ IN SOA ns.openstack.local. root.openstack.local. (
+                  2     ; Serial
+             604800     ; Refresh
+              86400     ; Retry
+            2419200     ; Expire
+             604800 )   ; Negative Cache TTL
+;
+@ IN NS ns.openstack.local.
+
+;
+ns                IN  A   10.0.1.10
+infra             IN  A   10.0.1.10
+controller        IN  A   10.0.2.10
+compute01         IN  A   10.0.2.11
+compute02         IN  A   10.0.2.12
+
+;
+database    IN  CNAME infra
+memcache    IN  CNAME infra
+rabbitmq    IN  CNAME infra
+ldap        IN  CNAME infra

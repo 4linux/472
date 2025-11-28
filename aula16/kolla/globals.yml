@@ -1,0 +1,34 @@
+---
+workaround_ansible_issue_8743: yes
+kolla_base_distro: "rocky"
+openstack_release: "2024.1"
+nova_compute_virt_type: "kvm"
+nova_console: "novnc"
+kolla_internal_vip_address: "10.0.2.10"
+kolla_container_engine: docker
+kolla_enable_tls_internal: "no"
+kolla_enable_tls_external: "no"
+network_interface: "eth0"
+api_interface: "{{ network_interface }}"
+neutron_external_interface: "eth1"
+neutron_plugin_agent: "openvswitch"
+enable_neutron_provider_networks: "yes"
+enable_haproxy: "no"
+enable_cinder: "yes"
+enable_cinder_backend_nfs: "yes"
+enable_cinder_backup: "no"
+enable_horizon: "yes"
+enable_horizon_heat: "yes"
+host_os_distributions:
+  CentOS:
+    - "8"
+  Debian:
+    - "bullseye"
+  openEuler:
+    - "22.03"
+  Rocky:
+    - "8"
+  Ubuntu:
+    - "focal"
+  AlmaLinux:
+    - "9"

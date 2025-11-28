@@ -1,0 +1,4 @@
+dn: cn=openstack-users,ou=groups,dc=openstack,dc=local
+objectClass: groupOfNames
+cn: openstack-users
+member: uid=openstack-user1,ou=users,dc=openstack,dc=local

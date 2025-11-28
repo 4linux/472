@@ -1,0 +1,12 @@
+[Unit]
+Description=Configure OpenStack o-hm0 Health Manager interface
+After=network-online.target openvswitch.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/config-o-hm0.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

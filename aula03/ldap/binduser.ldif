@@ -1,0 +1,6 @@
+dn: cn=binduser,ou=users,dc=openstack,dc=local
+objectClass: organizationalRole
+objectClass: simpleSecurityObject
+cn: binduser
+userPassword: 
+description: Bind DN user for LDAP Operations

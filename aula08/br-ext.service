@@ -1,0 +1,12 @@
+[Unit]
+Description=Configure OpenStack external bridge br-ext
+After=network-online.target openvswitch.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/config-br-ext.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
